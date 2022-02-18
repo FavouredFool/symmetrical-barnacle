@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,12 +22,10 @@ public class SteeringWheelControl : MonoBehaviour
 
     public float currentSteeringWheelRotation = 0;
 
-    public float turnDampening = 10;
-
     public Transform directionalObject;
 
     public GameObject vehicle;
-    private Rigidbody vehicleRigidBody;
+    
 
     private bool rightTriggerPressed = false;
     private bool leftTriggerPressed = false;
@@ -42,16 +41,15 @@ public class SteeringWheelControl : MonoBehaviour
 
     InputDevice rightController;
     InputDevice leftController;
+
+    public ShipRotation shipRotation;
+    public ShipMovement shipMovement;
     
 
     private void Start()
     {
         TryInitialize();
-        
 
-        vehicleRigidBody = vehicle.GetComponent<Rigidbody>();
-
-        
     }
 
     public void TryInitialize()
@@ -157,12 +155,13 @@ public class SteeringWheelControl : MonoBehaviour
 
     private void TurnVehicle()
     {
-        var turn = -transform.rotation.eulerAngles.z;
-        //Debug.Log($"Turn: {turn}");
-        // Here you can include turn-Dampening
+        var zTurn = -transform.localRotation.eulerAngles.z;
 
-        vehicleRigidBody.MoveRotation(Quaternion.RotateTowards(vehicle.transform.rotation, Quaternion.Euler(0,turn,0), Time.deltaTime * turnDampening));
-        
+        shipRotation.UpdateShipRotation(vehicle.transform.rotation, zTurn);
+
+        shipMovement.UpdateShipMovement();
+
+
     }
 
     private void ConvertHandRotationToSteeringWheelRotation()

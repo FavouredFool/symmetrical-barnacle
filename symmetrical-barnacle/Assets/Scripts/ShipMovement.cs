@@ -5,16 +5,21 @@ using UnityEngine;
 public class ShipMovement : MonoBehaviour
 {
     public int speed = 5;
+    private Rigidbody rb;
 
-
-    public void Update()
+    public void Start()
     {
-        /*
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * 100, transform.position.y, transform.position.z);
-        }
-        */
+        rb = GetComponent<Rigidbody>();
+    }
+
+    public void LateUpdate()
+    {
+        //transform.Translate(transform.forward * speed * Time.deltaTime);
+    }
+
+    public void UpdateShipMovement()
+    {
+        //transform.position += transform.forward * speed * Time.deltaTime;
     }
 }
 
