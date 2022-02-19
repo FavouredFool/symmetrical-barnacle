@@ -15,6 +15,7 @@ public class ShipMovement : MonoBehaviour
     public void LateUpdate()
     {
         //transform.Translate(transform.forward * speed * Time.deltaTime);
+        rb.MovePosition(transform.position + transform.forward * speed * Time.deltaTime);
     }
 
     public void UpdateShipMovement()
