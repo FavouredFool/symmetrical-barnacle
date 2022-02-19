@@ -155,21 +155,52 @@ public class SteeringWheelControl : MonoBehaviour
 
     private void TurnVehicle()
     {
-        var zTurn = -transform.localRotation.eulerAngles.z;
+        
+        var zTurn = transform.localRotation.eulerAngles.z;
+        Debug.Log(zTurn);
 
-        shipRotation.UpdateShipRotation(vehicle.transform.rotation, zTurn);
+        float dist = zTurn;
+
+        int sign;
+
+        if (Mathf.Abs(dist) < 180)
+        {
+            if (dist > 10)
+            {
+                sign = -1;
+            }
+            else
+            {
+                sign = 0;
+            }
+        }
+        else
+        {
+            if (dist < 350)
+            {
+                sign = 1;
+            }
+            else
+            {
+                sign = 0;
+            }
+        }
+
+        shipRotation.UpdateShipRotation(vehicle.transform.rotation, sign);
 
         shipMovement.UpdateShipMovement();
-
 
     }
 
     private void ConvertHandRotationToSteeringWheelRotation()
     {
+        
         if (rightHandOnWheel && !leftHandOnWheel)
         {
             Quaternion newRot = Quaternion.Euler(0, vehicle.transform.rotation.eulerAngles.y, rightHandOriginalParent.transform.rotation.eulerAngles.z);
+            //transform.RotateAround(directionalObject.transform.position, directionalObject.transform.forward, rightHandOriginalParent.transform.rotation.eulerAngles.z * Time.deltaTime);
             directionalObject.rotation = newRot;
+
             transform.parent = directionalObject;
         } else if (!rightHandOnWheel && leftHandOnWheel)
         {
@@ -184,6 +215,7 @@ public class SteeringWheelControl : MonoBehaviour
             directionalObject.rotation = finalRot;
             transform.parent = directionalObject;
         }
+        
     }
 
     private void ReleaseHandsFromWheel()
