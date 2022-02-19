@@ -6,13 +6,14 @@ public class ShipRotation : MonoBehaviour
 {
     private Rigidbody rigidBody;
 
-    public float turnDampening = 10;
+    //public float turnDampening = 10;
     public float rotationSpeed = 15;
 
     public float angleDampening = 200;
     public float angleMax = 20;
     
 
+    public float angleSpeed = 10;
     private float angleGoal = 0;
 
 
@@ -71,8 +72,24 @@ public class ShipRotation : MonoBehaviour
 
     public Quaternion CalculateZRotation(float sign)
     {
-        angleGoal = angleMax * sign;
+        float angleGoal = angleMax * sign;
         //Debug.Log($"AngleGoal: {angleGoal}");
+
+
+        /*
+        if (sign > 0)
+        {
+            angleGoal = Mathf.Min(transform.rotation.eulerAngles.z + sign * angleSpeed * Time.deltaTime, angleMax);
+        } else if (sign < 0)
+        {
+            angleGoal = Mathf.Max(transform.rotation.eulerAngles.z + sign * angleSpeed * Time.deltaTime, -angleMax);
+        } else
+        {
+            angleGoal = 0;
+        }*/
+        
+
+        //return Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, -angleGoal, 0), float.PositiveInfinity);
 
         return Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, -angleGoal), angleDampening * Time.deltaTime);
     }
