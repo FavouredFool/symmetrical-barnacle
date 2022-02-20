@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
+using System.IO.Ports;
 
 public class ArduinoWriter : MonoBehaviour
 {
+
+    SerialPort port = new SerialPort();
     
+
     /// <summary>
     /// 
     /// sign ist bei einer Bewegung nach rechts "1" -> Plattform fährt links hoch.
@@ -17,6 +20,7 @@ public class ArduinoWriter : MonoBehaviour
 
     public void WriteToArduino(int sign)
     {
-
+        //Debug.Log(port);
+        //Debug.Log($"WriteToArduino: {sign}");
     }
 }

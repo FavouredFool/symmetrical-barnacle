@@ -157,7 +157,6 @@ public class SteeringWheelControl : MonoBehaviour
     {
         
         var zTurn = transform.localRotation.eulerAngles.z;
-        Debug.Log(zTurn);
 
         float dist = zTurn;
 
