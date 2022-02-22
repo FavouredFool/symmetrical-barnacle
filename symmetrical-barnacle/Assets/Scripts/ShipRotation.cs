@@ -12,10 +12,6 @@ public class ShipRotation : MonoBehaviour
 
     public float angleDampening = 200;
     public float angleMax = 20;
-    
-
-    public float angleSpeed = 10;
-    private float angleGoal = 0;
 
 
     public void Start()
